@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Admin Dashboard</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+<nav class="navbar navbar-dark bg-dark">
+
+    <div class="container">
+
+        <a class="navbar-brand fw-bold"
+           href="{{ url_for('admin_dashboard') }}">
+            🔐 Fruit Detection Admin
+        </a>
+
+        <div>
+
+            <span class="text-white me-3">
+                Admin: {{ session.get("admin_username") }}
+            </span>
+
+            <a href="{{ url_for('admin_logout') }}"
+               class="btn btn-danger btn-sm">
+                Logout
+            </a>
+
+        </div>
+
+    </div>
+
+</nav>
+
+
+<div class="container-fluid py-5">
+
+    <h1 class="fw-bold mb-4">
+        Admin Dashboard
+    </h1>
+
+
+    <!-- STATISTICS -->
+
+    <div class="row g-4 mb-5">
+
+        <div class="col-md-4">
+
+            <div class="card dashboard-card shadow">
+
+                <div class="card-body">
+
+                    <h6 class="text-muted">
+                        Total Customers
+                    </h6>
+
+                    <h2 class="fw-bold">
+                        {{ total_customers }}
+                    </h2>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="col-md-4">
+
+            <div class="card dashboard-card shadow">
+
+                <div class="card-body">
+
+                    <h6 class="text-muted">
+                        Total Predictions
+                    </h6>
+
+                    <h2 class="fw-bold">
+                        {{ total_predictions }}
+                    </h2>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="col-md-4">
+
+            <div class="card dashboard-card shadow">
+
+                <div class="card-body">
+
+                    <h6 class="text-muted">
+                        Supported Fruits
+                    </h6>
+
+                    <h2 class="fw-bold">
+                        5
+                    </h2>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- FRUIT STATISTICS -->
+
+    <div class="card shadow mb-5">
+
+        <div class="card-header bg-success text-white">
+
+            <h4 class="mb-0">
+                Fruit Prediction Statistics
+            </h4>
+
+        </div>
+
+        <div class="card-body">
+
+            {% if fruit_statistics %}
+
+            <div class="table-responsive">
+
+                <table class="table table-bordered">
+
+                    <thead>
+
+                        <tr>
+
+                            <th>Fruit</th>
+
+                            <th>Number of Predictions</th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                        {% for item in fruit_statistics %}
+
+                        <tr>
+
+                            <td>
+                                {{ item["fruit_name"]|capitalize }}
+                            </td>
+
+                            <td>
+                                {{ item["count"] }}
+                            </td>
+
+                        </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+            {% else %}
+
+            <p class="text-muted">
+                No prediction data available.
+            </p>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+
+    <!-- CUSTOMERS -->
+
+    <div class="card shadow mb-5">
+
+        <div class="card-header bg-dark text-white">
+
+            <h4 class="mb-0">
+                Registered Customers
+            </h4>
+
+        </div>
+
+        <div class="card-body">
+
+            {% if customers %}
+
+            <div class="table-responsive">
+
+                <table class="table table-bordered table-hover">
+
+                    <thead class="table-light">
+
+                        <tr>
+
+                            <th>ID</th>
+
+                            <th>Name</th>
+
+                            <th>Email</th>
+
+                            <th>Phone</th>
+
+                            <th>Registered</th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                        {% for customer in customers %}
+
+                        <tr>
+
+                            <td>
+                                {{ customer["id"] }}
+                            </td>
+
+                            <td>
+                                {{ customer["name"] }}
+                            </td>
+
+                            <td>
+                                {{ customer["email"] }}
+                            </td>
+
+                            <td>
+                                {{ customer["phone"] or "-" }}
+                            </td>
+
+                            <td>
+                                {{ customer["created_at"] }}
+                            </td>
+
+                        </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+            {% else %}
+
+            <p class="text-muted">
+                No customers registered yet.
+            </p>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+
+    <!-- ALL PREDICTIONS -->
+
+    <div class="card shadow">
+
+        <div class="card-header bg-success text-white">
+
+            <h4 class="mb-0">
+                All Predictions
+            </h4>
+
+        </div>
+
+        <div class="card-body">
+
+            {% if predictions %}
+
+            <div class="table-responsive">
+
+                <table class="table table-bordered table-hover">
+
+                    <thead>
+
+                        <tr>
+
+                            <th>ID</th>
+
+                            <th>Customer</th>
+
+                            <th>Email</th>
+
+                            <th>Fruit</th>
+
+                            <th>Confidence</th>
+
+                            <th>Image</th>
+
+                            <th>Date</th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                        {% for prediction in predictions %}
+
+                        <tr>
+
+                            <td>
+                                {{ prediction["id"] }}
+                            </td>
+
+                            <td>
+                                {{ prediction["customer_name"] }}
+                            </td>
+
+                            <td>
+                                {{ prediction["customer_email"] }}
+                            </td>
+
+                            <td>
+                                <strong>
+                                    {{ prediction["fruit_name"]|capitalize }}
+                                </strong>
+                            </td>
+
+                            <td>
+                                {{ "%.2f"|format(
+                                    prediction["confidence"]
+                                ) }}%
+                            </td>
+
+                            <td>
+
+                                {% if prediction["image_path"] %}
+
+                                <img src="{{ url_for(
+                                    'static',
+                                    filename=prediction['image_path']
+                                ) }}"
+                                class="history-image"
+                                alt="Fruit">
+
+                                {% endif %}
+
+                            </td>
+
+                            <td>
+                                {{ prediction["created_at"] }}
+                            </td>
+
+                        </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+            {% else %}
+
+            <p class="text-muted">
+                No predictions available.
+            </p>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

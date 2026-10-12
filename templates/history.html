@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Prediction History</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+<nav class="navbar navbar-dark bg-success">
+
+    <div class="container">
+
+        <a class="navbar-brand fw-bold"
+           href="{{ url_for('home') }}">
+            🍎 Fruit Detection AI
+        </a>
+
+        <div>
+
+            <a class="btn btn-light btn-sm"
+               href="{{ url_for('prediction') }}">
+                New Prediction
+            </a>
+
+            <a class="btn btn-warning btn-sm"
+               href="{{ url_for('logout') }}">
+                Logout
+            </a>
+
+        </div>
+
+    </div>
+
+</nav>
+
+
+<div class="container py-5">
+
+    <h1 class="text-center fw-bold mb-2">
+        Prediction History
+    </h1>
+
+    <p class="text-center text-muted mb-5">
+        Your previous fruit detection results
+    </p>
+
+
+    {% if predictions %}
+
+    <div class="table-responsive">
+
+        <table class="table table-bordered table-hover align-middle">
+
+            <thead class="table-success">
+
+                <tr>
+
+                    <th>#</th>
+
+                    <th>Image</th>
+
+                    <th>Fruit</th>
+
+                    <th>Confidence</th>
+
+                    <th>Date & Time</th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody>
+
+                {% for prediction in predictions %}
+
+                <tr>
+
+                    <td>
+                        {{ loop.index }}
+                    </td>
+
+
+                    <td>
+
+                        {% if prediction["image_path"] %}
+
+                        <img src="{{ url_for(
+                            'static',
+                            filename=prediction['image_path']
+                        ) }}"
+                        class="history-image"
+                        alt="Fruit">
+
+                        {% else %}
+
+                        No Image
+
+                        {% endif %}
+
+                    </td>
+
+
+                    <td>
+
+                        <strong class="text-success">
+
+                            {{ prediction["fruit_name"]|capitalize }}
+
+                        </strong>
+
+                    </td>
+
+
+                    <td>
+
+                        {{ "%.2f"|format(
+                            prediction["confidence"]
+                        ) }}%
+
+                    </td>
+
+
+                    <td>
+                        {{ prediction["created_at"] }}
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+    {% else %}
+
+    <div class="alert alert-info text-center">
+
+        <h5>
+            No predictions yet.
+        </h5>
+
+        <p>
+            Upload your first fruit image to see the result here.
+        </p>
+
+        <a href="{{ url_for('prediction') }}"
+           class="btn btn-success">
+            Make Prediction
+        </a>
+
+    </div>
+
+    {% endif %}
+
+</div>
+
+</body>
+</html>

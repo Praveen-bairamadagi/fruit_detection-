@@ -1,0 +1,278 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Customer Dashboard - Fruit Detection AI</title>
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/style.css') }}"
+    >
+</head>
+
+<body class="bg-light">
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-success">
+    <div class="container">
+
+        <a class="navbar-brand fw-bold" href="{{ url_for('dashboard') }}">
+            🍎 Fruit Detection AI
+        </a>
+
+        <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarMenu"
+        >
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarMenu">
+
+            <ul class="navbar-nav ms-auto">
+
+                <li class="nav-item">
+                    <a
+                        class="nav-link active"
+                        href="{{ url_for('dashboard') }}"
+                    >
+                        Home
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a
+                        class="nav-link"
+                        href="{{ url_for('predict') }}"
+                    >
+                        🍎 Prediction
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a
+                        class="nav-link"
+                        href="{{ url_for('customer_profile') }}"
+                    >
+                        👤 Profile
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a
+                        class="nav-link"
+                        href="{{ url_for('customer_history') }}"
+                    >
+                        📜 History
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a
+                        class="nav-link text-warning"
+                        href="{{ url_for('customer_logout') }}"
+                    >
+                        Logout
+                    </a>
+                </li>
+
+            </ul>
+
+        </div>
+    </div>
+</nav>
+
+
+<!-- DASHBOARD -->
+<div class="container mt-5">
+
+    <div class="text-center mb-5">
+
+        <h1 class="fw-bold">
+            Welcome to Fruit Detection AI 🍎
+        </h1>
+
+        <p class="text-muted">
+            Detect fruits using Deep Learning
+        </p>
+
+    </div>
+
+
+    <!-- CARDS -->
+    <div class="row g-4">
+
+
+        <!-- PREDICTION -->
+        <div class="col-md-4">
+
+            <div class="card shadow h-100">
+
+                <div class="card-body text-center p-4">
+
+                    <div style="font-size: 55px;">
+                        🍎
+                    </div>
+
+                    <h3 class="mt-3">
+                        Fruit Prediction
+                    </h3>
+
+                    <p class="text-muted">
+                        Upload a fruit image and let our AI
+                        identify the fruit.
+                    </p>
+
+                    <a
+                        href="{{ url_for('predict') }}"
+                        class="btn btn-success"
+                    >
+                        Start Prediction
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- PROFILE -->
+        <div class="col-md-4">
+
+            <div class="card shadow h-100">
+
+                <div class="card-body text-center p-4">
+
+                    <div style="font-size: 55px;">
+                        👤
+                    </div>
+
+                    <h3 class="mt-3">
+                        My Profile
+                    </h3>
+
+                    <p class="text-muted">
+                        View your customer profile and
+                        account information.
+                    </p>
+
+                    <a
+                        href="{{ url_for('customer_profile') }}"
+                        class="btn btn-primary"
+                    >
+                        View Profile
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- HISTORY -->
+        <div class="col-md-4">
+
+            <div class="card shadow h-100">
+
+                <div class="card-body text-center p-4">
+
+                    <div style="font-size: 55px;">
+                        📜
+                    </div>
+
+                    <h3 class="mt-3">
+                        Prediction History
+                    </h3>
+
+                    <p class="text-muted">
+                        View all your previous fruit
+                        predictions.
+                    </p>
+
+                    <a
+                        href="{{ url_for('customer_history') }}"
+                        class="btn btn-dark"
+                    >
+                        View History
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+    <!-- INFORMATION -->
+    <div class="card shadow mt-5">
+
+        <div class="card-body p-4">
+
+            <h3 class="fw-bold">
+                About Fruit Detection AI
+            </h3>
+
+            <p>
+                Fruit Detection AI is a deep learning based
+                application that identifies fruits from uploaded
+                images.
+            </p>
+
+            <p class="mb-0">
+                Currently supported fruits:
+            </p>
+
+            <div class="mt-3">
+
+                <span class="badge bg-danger fs-6 m-1">
+                    🍎 Apple
+                </span>
+
+                <span class="badge bg-warning text-dark fs-6 m-1">
+                    🍌 Banana
+                </span>
+
+                <span class="badge bg-purple fs-6 m-1">
+                    🍇 Grape
+                </span>
+
+                <span class="badge bg-success fs-6 m-1">
+                    🥭 Mango
+                </span>
+
+                <span class="badge bg-warning text-dark fs-6 m-1">
+                    🍊 Orange
+                </span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+</script>
+
+</body>
+</html>
+

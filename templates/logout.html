@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Logout - Fruit Detection AI</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="row justify-content-center">
+
+        <div class="col-md-6">
+
+            <div class="card shadow text-center mt-5">
+
+                <div class="card-body p-5">
+
+                    <div class="display-1">
+                        👋
+                    </div>
+
+                    <h1 class="fw-bold mt-3">
+                        You Have Been Logged Out
+                    </h1>
+
+                    <p class="text-muted">
+                        Thank you for using Fruit Detection AI.
+                    </p>
+
+
+                    <div class="mt-4">
+
+                        <a href="{{ url_for('home') }}"
+                           class="btn btn-success">
+                            🏠 Home
+                        </a>
+
+                        {% if admin_logout %}
+
+                        <a href="{{ url_for('admin_login') }}"
+                           class="btn btn-dark">
+                            Admin Login
+                        </a>
+
+                        {% else %}
+
+                        <a href="{{ url_for('login') }}"
+                           class="btn btn-outline-success">
+                            Customer Login
+                        </a>
+
+                        {% endif %}
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>
